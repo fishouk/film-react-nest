@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as path from 'node:path';
 
@@ -16,13 +16,23 @@ import { Schedule } from './repository/entities/schedule.entity';
       isGlobal: true,
       cache: true,
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      url: process.env.DATABASE_URL,
-      username: process.env.DATABASE_USERNAME,
-      password: process.env.DATABASE_PASSWORD,
-      entities: [Film, Schedule],
-      synchronize: false,
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        const databaseUrl = configService.getOrThrow<string>('DATABASE_URL');
+        const parsedUrl = new URL(databaseUrl);
+
+        return {
+          type: 'postgres' as const,
+          host: parsedUrl.hostname,
+          port: Number(parsedUrl.port) || 5432,
+          database: parsedUrl.pathname.replace(/^\//, ''),
+          username: configService.getOrThrow<string>('DATABASE_USERNAME'),
+          password: configService.getOrThrow<string>('DATABASE_PASSWORD'),
+          entities: [Film, Schedule],
+          synchronize: false,
+        };
+      },
     }),
     ServeStaticModule.forRoot({
       rootPath: path.join(__dirname, '..', 'public'),
