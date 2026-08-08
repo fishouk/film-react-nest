@@ -1,26 +1,21 @@
 import { Module } from '@nestjs/common';
-import { configProvider, AppConfig } from '../app.config.provider';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { configProvider } from '../app.config.provider';
+import { Film } from './entities/film.entity';
+import { Schedule } from './entities/schedule.entity';
 import { FILMS_REPOSITORY } from './films-repository.interface';
-import { FilmsMemoryRepository } from './films-memory.repository';
-import { FilmsMongodbRepository } from './films-mongodb.repository';
+import { FilmsPostgresRepository } from './films-postgres.repository';
 
 @Module({
+  imports: [TypeOrmModule.forFeature([Film, Schedule])],
   providers: [
     configProvider,
-    FilmsMemoryRepository,
-    FilmsMongodbRepository,
+    FilmsPostgresRepository,
     {
       provide: FILMS_REPOSITORY,
-      useFactory: (
-        config: AppConfig,
-        memory: FilmsMemoryRepository,
-        mongo: FilmsMongodbRepository,
-      ) => {
-        return config.database.driver === 'mongodb' ? mongo : memory;
-      },
-      inject: ['CONFIG', FilmsMemoryRepository, FilmsMongodbRepository],
+      useExisting: FilmsPostgresRepository,
     },
   ],
-  exports: [FILMS_REPOSITORY, configProvider],
+  exports: [FILMS_REPOSITORY, configProvider, TypeOrmModule],
 })
 export class RepositoryModule {}
