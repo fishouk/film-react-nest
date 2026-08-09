@@ -1,5 +1,10 @@
 # FILM!
 
+## Деплой
+
+* Сайт: `https://ВАШ-ДОМЕН.nomoreparties.site`
+* API: `https://ВАШ-ДОМЕН.nomoreparties.site/api/afisha/films`
+
 ## Установка
 
 ### MongoDB
