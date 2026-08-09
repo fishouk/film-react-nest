@@ -3,7 +3,7 @@ FROM node:18-bookworm-slim AS build
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci
+RUN npm ci && npm install --no-save @rollup/rollup-linux-x64-gnu
 
 COPY . .
 
