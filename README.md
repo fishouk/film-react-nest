@@ -2,8 +2,8 @@
 
 ## Деплой
 
-* Сайт: `https://ВАШ-ДОМЕН.nomoreparties.site`
-* API: `https://ВАШ-ДОМЕН.nomoreparties.site/api/afisha/films`
+* Сайт: `https://film.alex-fisher-dev.ru`
+* API: `https://film.alex-fisher-dev.ru/api/afisha/films`
 
 ## Установка
 
