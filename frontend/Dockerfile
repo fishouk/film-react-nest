@@ -1,4 +1,4 @@
-FROM node:18-alpine AS build
+FROM node:18-bookworm-slim AS build
 
 WORKDIR /app
 
