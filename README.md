@@ -1,5 +1,10 @@
 # FILM!
 
+## Деплой
+
+* Сайт: `http://film.alex-fisher-dev.ru`
+* API: `http://film.alex-fisher-dev.ru/api/afisha/films`
+
 ## Установка
 
 ### MongoDB

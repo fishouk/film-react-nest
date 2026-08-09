@@ -35,8 +35,6 @@ services:
 
   backend:
     image: ghcr.io/fishouk/film-backend:latest
-    build:
-      context: ./backend
     container_name: film_backend
     environment:
       DATABASE_DRIVER: postgres
@@ -52,8 +50,6 @@ services:
 
   frontend:
     image: ghcr.io/fishouk/film-frontend:latest
-    build:
-      context: ./frontend
     container_name: film_frontend
     volumes:
       - frontend_dist:/frontend_dist
@@ -62,8 +58,6 @@ services:
 
   nginx:
     image: ghcr.io/fishouk/film-nginx:latest
-    build:
-      context: ./nginx
     container_name: film_nginx
     ports:
       - '80:80'
