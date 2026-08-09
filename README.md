@@ -2,8 +2,8 @@
 
 ## Деплой
 
-* Сайт: `https://film.alex-fisher-dev.ru`
-* API: `https://film.alex-fisher-dev.ru/api/afisha/films`
+* Сайт: `http://film.alex-fisher-dev.ru`
+* API: `http://film.alex-fisher-dev.ru/api/afisha/films`
 
 ## Установка
 
